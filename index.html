@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>eMANDEVAL Future: Vaccine Mandate Decision Aid</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#0E3E36" />
+  <meta name="description" content="A plain language decision aid that estimates public support, health benefits and costs for vaccine mandate designs in Australia, France and Italy." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@500;600;700;800&family=Source+Sans+3:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body data-text="m">
+  <a class="skip-link" href="#main">Skip to main content</a>
+
+  <!-- ============ Header ============ -->
+  <header class="masthead" role="banner">
+    <div class="wrap masthead-inner">
+      <a class="brand" href="#top" aria-label="eMANDEVAL Future, home">
+        <span class="brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 40 40" width="38" height="38" focusable="false">
+            <rect x="1" y="1" width="38" height="38" rx="10" fill="var(--primary)"/>
+            <path d="M20 9.5l8 3.4v6.1c0 5.2-3.4 9-8 10.5c-4.6-1.5-8-5.3-8-10.5v-6.1z" fill="none" stroke="#fff" stroke-width="2.1" stroke-linejoin="round"/>
+            <path d="M16 20.2l2.7 2.7L25 16.3" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </span>
+        <span class="brand-text">
+          <span class="brand-name">eMANDEVAL Future</span>
+          <span class="brand-tag">Vaccine mandate decision aid</span>
+        </span>
+      </a>
+
+      <div class="utilities" role="group" aria-label="Display and help options">
+        <div class="util-group" role="group" aria-label="Text size">
+          <span class="util-label" aria-hidden="true">Text</span>
+          <button class="util-btn" id="text-dec" type="button" aria-label="Decrease text size">A<span class="vis-hidden"> smaller</span></button>
+          <button class="util-btn" id="text-inc" type="button" aria-label="Increase text size">A<span aria-hidden="true">+</span></button>
+        </div>
+        <button class="util-btn util-toggle" id="contrast-toggle" type="button" aria-pressed="false">
+          <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 3v18" fill="currentColor"/></svg>
+          High contrast
+        </button>
+        <button class="util-btn util-cta" id="tour-start" type="button">
+          <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 8h.01M11 12h1v4h1"/></svg>
+          Take the tour
+        </button>
+      </div>
+    </div>
+    <nav class="subnav" aria-label="Sections">
+      <div class="wrap subnav-inner">
+        <a href="#overview" class="subnav-link is-current">Overview</a>
+        <a href="#build" class="subnav-link">Build</a>
+        <a href="#results" class="subnav-link">Results</a>
+        <a href="#compare" class="subnav-link">Compare</a>
+        <a href="#report" class="subnav-link">Report</a>
+        <a href="#method" class="subnav-link">How it works</a>
+        <span class="save-state" id="save-state" aria-live="polite"></span>
+      </div>
+    </nav>
+  </header>
+
+  <main id="main" tabindex="-1">
+    <span id="top"></span>
+
+    <!-- ============ Overview ============ -->
+    <section id="overview" class="band band-hero" aria-labelledby="overview-h">
+      <div class="wrap hero-grid">
+        <div class="hero-copy">
+          <p class="eyebrow">Public health policy</p>
+          <h1 id="overview-h">See how a vaccine mandate design changes public support, lives saved and cost</h1>
+          <p class="lede">Choose a country and a mandate design. This tool estimates how many people would support that mandate, how many lives it could save, and how the benefits compare with the costs. Everything updates as you go, so you can explore options in minutes.</p>
+          <div class="hero-actions">
+            <a href="#build" class="btn btn-primary">Start building</a>
+            <button class="btn btn-quiet" id="overview-tour" type="button">New to this? Take the tour</button>
+          </div>
+          <p class="hero-note">Built for decision makers and for anyone new to the topic. No sign in. Your work stays in this browser.</p>
+        </div>
+        <aside class="hero-side" aria-labelledby="preset-h">
+          <h2 id="preset-h" class="side-title">Quick start examples</h2>
+          <p class="side-sub">Load a worked example, then change anything you like.</p>
+          <ul class="preset-list" id="preset-list">
+            <li><button class="preset" type="button" data-preset="balanced"><span class="preset-name">A balanced mandate</span><span class="preset-desc">High risk workers, medical and religious exemptions, lifted at 70 percent</span></button></li>
+            <li><button class="preset" type="button" data-preset="strict"><span class="preset-name">A strict mandate, severe outbreak</span><span class="preset-desc">Everyone, medical exemptions only, lifted at 90 percent</span></button></li>
+            <li><button class="preset" type="button" data-preset="lenient"><span class="preset-name">A lenient mandate, mild outbreak</span><span class="preset-desc">High risk workers, broad exemptions, lifted at 50 percent</span></button></li>
+          </ul>
+        </aside>
+      </div>
+    </section>
+
+    <!-- ============ Console: Build + Results ============ -->
+    <div class="band band-console">
+      <div class="wrap console-grid">
+
+        <!-- ----- Build (controls) ----- -->
+        <section id="build" class="panel panel-build" aria-labelledby="build-h">
+          <div class="panel-head">
+            <h2 id="build-h">Build the mandate</h2>
+            <button class="link-btn" id="reset-all" type="button">Reset to defaults</button>
+          </div>
+
+          <fieldset class="field-set" id="tour-country">
+            <legend>Where and when</legend>
+            <div class="control">
+              <span class="control-label" id="lbl-country">Country</span>
+              <div class="chips" role="radiogroup" aria-labelledby="lbl-country" id="country-chips">
+                <button class="chip" role="radio" aria-checked="true" data-value="AU" type="button">Australia</button>
+                <button class="chip" role="radio" aria-checked="false" data-value="FR" type="button">France</button>
+                <button class="chip" role="radio" aria-checked="false" data-value="IT" type="button">Italy</button>
+              </div>
+            </div>
+            <div class="control">
+              <span class="control-label" id="lbl-outbreak">Outbreak situation <button class="help-dot" type="button" data-help="The setting people were asked to imagine: a mild or endemic situation, or a severe outbreak. Support tends to be higher in a severe outbreak.">What is this?</button></span>
+              <div class="chips" role="radiogroup" aria-labelledby="lbl-outbreak" id="outbreak-chips">
+                <button class="chip" role="radio" aria-checked="true" data-value="mild" type="button">Mild or endemic</button>
+                <button class="chip" role="radio" aria-checked="false" data-value="severe" type="button">Severe outbreak</button>
+              </div>
+            </div>
+          </fieldset>
+
+          <fieldset class="field-set" id="tour-design">
+            <legend>Mandate design</legend>
+            <div class="control">
+              <label for="scope">Who it applies to <button class="help-dot" type="button" data-help="A narrow mandate covers high risk workers such as healthcare and emergency staff. A broad mandate covers all workplaces and public venues.">What is this?</button></label>
+              <select id="scope">
+                <option value="highrisk">High risk occupations only</option>
+                <option value="all">All occupations and public spaces</option>
+              </select>
+            </div>
+            <div class="control">
+              <label for="exemptions">Who can opt out <button class="help-dot" type="button" data-help="Stricter rules allow medical exemptions only. Broader rules also allow religious or personal belief exemptions.">What is this?</button></label>
+              <select id="exemptions">
+                <option value="medical">Medical reasons only</option>
+                <option value="medrel">Medical or religious reasons</option>
+                <option value="medrelpers">Medical, religious or personal belief</option>
+              </select>
+            </div>
+            <div class="control">
+              <label for="coverage">Lift the mandate once this share is vaccinated <button class="help-dot" type="button" data-help="The vaccination level at which the mandate ends. A higher threshold keeps the mandate in place longer.">What is this?</button></label>
+              <select id="coverage">
+                <option value="0.5">50 percent vaccinated</option>
+                <option value="0.7">70 percent vaccinated</option>
+                <option value="0.9">90 percent vaccinated</option>
+              </select>
+            </div>
+            <div class="control">
+              <label for="lives">Expected lives saved for every 100,000 people <button class="help-dot" type="button" data-help="The health benefit assumption. The study looked at 10 to 40 lives saved per 100,000. Values outside that range are an extrapolation and are flagged.">What is this?</button></label>
+              <div class="slider-row">
+                <input type="range" id="lives" min="0" max="100" step="1" value="25"
+                       aria-describedby="lives-help" aria-valuetext="25 lives per 100,000" />
+                <output class="slider-out" id="lives-out" for="lives">25</output>
+              </div>
+              <p class="control-help" id="lives-help">Study range is 10 to 40 per 100,000. The marks below show that range.</p>
+              <div class="slider-scale" aria-hidden="true"><span style="left:10%">10</span><span style="left:40%">40</span></div>
+            </div>
+          </fieldset>
+
+          <details class="disclosure" id="tour-settings">
+            <summary>Population and value settings</summary>
+            <div class="disclosure-body">
+              <div class="control">
+                <label for="population">People covered by the mandate</label>
+                <input type="number" id="population" min="0" step="10000" value="1000000" inputmode="numeric" />
+              </div>
+              <div class="control">
+                <label for="horizon">Time period in years <button class="help-dot" type="button" data-help="The number of years over which costs and benefits are counted.">What is this?</button></label>
+                <input type="number" id="horizon" min="0.25" step="0.25" value="1" inputmode="decimal" />
+              </div>
+              <div class="control">
+                <label for="metric">How each life saved is valued</label>
+                <select id="metric">
+                  <option value="vsl">Value of a statistical life</option>
+                  <option value="vsly">Value of a life year</option>
+                  <option value="qalys">Value per quality adjusted life year</option>
+                  <option value="healthsys">Health system savings per life</option>
+                </select>
+              </div>
+              <div class="control">
+                <label for="value-per-life">Money value for each life saved <span class="unit" id="currency-unit">AUD</span></label>
+                <input type="number" id="value-per-life" min="0" step="100000" value="5400000" inputmode="numeric" />
+                <p class="control-help" id="metric-note"></p>
+              </div>
+            </div>
+          </details>
+
+          <details class="disclosure" id="tour-costs">
+            <summary>Implementation costs <span class="opt-tag">optional</span></summary>
+            <div class="disclosure-body">
+              <p class="control-help">Leave blank to see health benefits only. Add costs to see net benefit and the benefit to cost ratio.</p>
+              <button class="btn btn-quiet btn-block" id="load-costs" type="button">Load typical costs for this country</button>
+              <div class="cost-grid">
+                <div class="control"><label for="c-it">Digital systems</label><input type="number" id="c-it" min="0" step="10000" value="0" inputmode="numeric" /></div>
+                <div class="control"><label for="c-comms">Public information</label><input type="number" id="c-comms" min="0" step="10000" value="0" inputmode="numeric" /></div>
+                <div class="control"><label for="c-enf">Enforcement</label><input type="number" id="c-enf" min="0" step="10000" value="0" inputmode="numeric" /></div>
+                <div class="control"><label for="c-comp">Monitoring and compensation</label><input type="number" id="c-comp" min="0" step="10000" value="0" inputmode="numeric" /></div>
+                <div class="control"><label for="c-admin">Administration</label><input type="number" id="c-admin" min="0" step="10000" value="0" inputmode="numeric" /></div>
+                <div class="control"><label for="c-other">Other costs</label><input type="number" id="c-other" min="0" step="10000" value="0" inputmode="numeric" /></div>
+              </div>
+              <p class="cost-total" id="cost-total-line">Total costs: not entered</p>
+            </div>
+          </details>
+
+          <div class="build-apply" id="tour-apply">
+            <p class="apply-hint" id="apply-hint">Your results are up to date.</p>
+            <button class="btn btn-primary btn-block apply-btn" id="apply-btn" type="button">
+              <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+              Apply and view results
+            </button>
+          </div>
+        </section>
+
+        <!-- ----- Results ----- -->
+        <section id="results" class="panel panel-results" aria-labelledby="results-h">
+          <div class="panel-head">
+            <h2 id="results-h">Results</h2>
+            <div class="head-right">
+              <span class="applied-stamp" id="applied-stamp" hidden></span>
+              <span class="pending-pill" id="pending-pill" hidden>Changes not applied</span>
+              <span class="config-pill" id="config-pill">Australia, mild</span>
+            </div>
+          </div>
+
+          <div class="apply-banner" id="apply-banner" role="status" hidden>
+            <span>You changed the design. The results below are from the last time you applied.</span>
+            <button class="btn btn-primary" id="apply-banner-btn" type="button">Apply changes</button>
+          </div>
+
+          <!-- Signature: live support meter -->
+          <div class="support-card" id="tour-support">
+            <div class="support-top">
+              <div>
+                <p class="support-kicker">Predicted public support</p>
+                <p class="support-value"><span id="support-num">67</span><span class="support-pct">percent</span></p>
+              </div>
+              <p class="support-verdict" id="support-verdict">Moderate support</p>
+            </div>
+            <svg class="meter" id="support-meter" viewBox="0 0 100 18" role="img" aria-label="Support meter">
+              <!-- bands and marker drawn by script -->
+            </svg>
+            <p class="support-plain" id="support-plain">About two in three people would support this mandate over no mandate.</p>
+          </div>
+
+          <details class="disclosure support-method">
+            <summary>How this support estimate is calculated</summary>
+            <div class="disclosure-body">
+              <p>The support estimate is calculated from a two-class latent-class choice model. The model estimates support separately for each preference class and then averages those predictions using the estimated size of each class in the selected country and outbreak scenario.</p>
+              <p class="control-help">It is the model-predicted probability of supporting the selected mandate policy over no mandate. It is an estimate of acceptability from stated preferences, not a forecast of behaviour or compliance.</p>
+            </div>
+          </details>
+
+          <div class="extrap" id="extrap" role="alert" hidden>
+            <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/><path d="M12 9v4M12 17h.01"/></svg>
+            <span id="extrap-text"></span>
+          </div>
+
+          <!-- Key figures -->
+          <h3 class="figures-h">Benefits and costs</h3>
+          <div class="figures" id="figures">
+            <div class="figure"><span class="figure-label">Lives saved</span><span class="figure-val" id="f-lives">250</span></div>
+            <div class="figure"><span class="figure-label">Health benefit value</span><span class="figure-val" id="f-benefit">AUD 1.35 B</span></div>
+            <div class="figure"><span class="figure-label">Total cost</span><span class="figure-val" id="f-cost">Not entered</span></div>
+            <div class="figure"><span class="figure-label">Net benefit</span><span class="figure-val" id="f-net">AUD 1.35 B</span></div>
+            <div class="figure figure-wide"><span class="figure-label">Benefit to cost ratio <button class="help-dot" type="button" data-help="Health benefit value divided by total cost. Above 1 means benefits are larger than costs. It is shown once you enter costs.">What is this?</button></span><span class="figure-val" id="f-bcr">Enter costs</span><span class="band-tag" id="bcr-band"></span></div>
+          </div>
+
+          <!-- Plain language interpretation -->
+          <div class="interpret" id="interpret" aria-live="polite">
+            <h3>What this means</h3>
+            <p id="interpret-text">Set a design on the left to see a plain language summary here.</p>
+          </div>
+
+          <!-- Charts -->
+          <h3 class="figures-h">Charts</h3>
+          <div class="charts">
+            <figure class="chart-card" data-chart="support">
+              <figcaption>Predicted support and no mandate <span class="chart-unit">unit: percent of people</span></figcaption>
+              <p class="chart-interp" id="interp-support">A breakdown of predicted support.</p>
+              <div class="chart-box"><canvas id="chart-support" aria-describedby="interp-support"></canvas></div>
+              <div class="chart-tools" role="group" aria-label="Support chart actions">
+                <button class="chart-tool" type="button" data-act="table" aria-expanded="false">Show data table</button>
+                <button class="chart-tool" type="button" data-act="png">Download image</button>
+                <button class="chart-tool" type="button" data-act="csv">Download data</button>
+              </div>
+              <table class="data-table chart-data" id="tbl-support"><caption>Predicted support and no mandate, in percent</caption><thead><tr><th scope="col">Group</th><th scope="col">Share (percent)</th></tr></thead><tbody></tbody></table>
+            </figure>
+
+            <figure class="chart-card" data-chart="byclass">
+              <figcaption>Predicted support by preference class <span class="chart-unit">unit: percent supporting</span> <button class="help-dot" type="button" data-help="The two-class latent-class model estimates support separately for each preference class (a supporter class and a resister class), then averages them using each class share for the selected country and outbreak. This chart shows each class and the weighted overall support.">What is this?</button></figcaption>
+              <p class="chart-interp" id="interp-byclass">Support within each preference class and the weighted overall figure.</p>
+              <div class="chart-box"><canvas id="chart-byclass" aria-describedby="interp-byclass"></canvas></div>
+              <div class="chart-tools" role="group" aria-label="Support by class chart actions">
+                <button class="chart-tool" type="button" data-act="table" aria-expanded="false">Show data table</button>
+                <button class="chart-tool" type="button" data-act="png">Download image</button>
+                <button class="chart-tool" type="button" data-act="csv">Download data</button>
+              </div>
+              <table class="data-table chart-data" id="tbl-byclass"><caption>Predicted support by preference class, with class shares and weighted contribution</caption><thead><tr><th scope="col">Preference class</th><th scope="col">Class share</th><th scope="col">Class support</th><th scope="col">Weighted contribution</th></tr></thead><tbody></tbody></table>
+            </figure>
+
+            <figure class="chart-card" data-chart="bc">
+              <figcaption>Benefit, cost and net benefit <span class="chart-unit" id="unit-bc">unit: AUD</span></figcaption>
+              <p class="chart-interp" id="interp-bc">Health benefit against cost.</p>
+              <div class="chart-box"><canvas id="chart-bc" aria-describedby="interp-bc"></canvas></div>
+              <div class="chart-tools" role="group" aria-label="Benefit and cost chart actions">
+                <button class="chart-tool" type="button" data-act="table" aria-expanded="false">Show data table</button>
+                <button class="chart-tool" type="button" data-act="png">Download image</button>
+                <button class="chart-tool" type="button" data-act="csv">Download data</button>
+              </div>
+              <table class="data-table chart-data" id="tbl-bc"><caption>Benefit, cost and net benefit, in local currency</caption><thead><tr><th scope="col">Item</th><th scope="col">Value</th></tr></thead><tbody></tbody></table>
+            </figure>
+
+            <figure class="chart-card" data-chart="tornado">
+              <figcaption>What moves the ratio most <span class="chart-unit">unit: benefit to cost ratio</span> <button class="help-dot" type="button" data-help="Each bar shows how far the benefit to cost ratio moves when that input changes by 20 percent. Longer bars matter more. Enter costs to see this.">What is this?</button></figcaption>
+              <p class="chart-interp" id="interp-tornado">Which inputs matter most for the ratio.</p>
+              <div class="chart-box" id="tornado-box"><canvas id="chart-tornado" aria-describedby="interp-tornado"></canvas></div>
+              <p class="chart-empty" id="tornado-empty">Add costs to see which inputs matter most.</p>
+              <div class="chart-tools" role="group" aria-label="Sensitivity chart actions">
+                <button class="chart-tool" type="button" data-act="table" aria-expanded="false">Show data table</button>
+                <button class="chart-tool" type="button" data-act="png">Download image</button>
+                <button class="chart-tool" type="button" data-act="csv">Download data</button>
+              </div>
+              <table class="data-table chart-data" id="tbl-tornado"><caption>Sensitivity of the benefit to cost ratio to each input</caption><thead><tr><th scope="col">Input</th><th scope="col">Ratio low</th><th scope="col">Ratio high</th></tr></thead><tbody></tbody></table>
+            </figure>
+          </div>
+
+          <!-- Ranges -->
+          <div class="ranges" id="ranges">
+            <h3>If the health benefit is higher or lower</h3>
+            <p class="control-help">Automatic range using 10, your value, and 40 lives saved per 100,000.</p>
+            <dl class="range-list">
+              <div><dt>Lives saved</dt><dd id="r-lives">to be calculated</dd></div>
+              <div><dt>Public support</dt><dd id="r-support">to be calculated</dd></div>
+              <div><dt>Benefit to cost ratio</dt><dd id="r-bcr">enter costs</dd></div>
+            </dl>
+          </div>
+
+          <!-- Health metrics -->
+          <details class="disclosure">
+            <summary>Other health effects</summary>
+            <div class="disclosure-body">
+              <dl class="metric-list">
+                <div><dt>Hospital admissions avoided</dt><dd id="m-hosp">0</dd></div>
+                <div><dt>Intensive care admissions avoided</dt><dd id="m-icu">0</dd></div>
+                <div><dt>Working days saved</dt><dd id="m-work">0</dd></div>
+              </dl>
+              <p class="control-help">These are rough conversions from lives saved and are not added to the money value above.</p>
+            </div>
+          </details>
+
+          <div class="result-actions">
+            <button class="btn btn-primary" id="save-scenario" type="button">Save this option</button>
+            <button class="btn btn-quiet" id="copy-summary" type="button">Copy summary</button>
+            <button class="btn btn-quiet" id="share-link" type="button">Copy share link</button>
+            <button class="btn btn-quiet" id="print-results" type="button">Print or save as PDF</button>
+          </div>
+        </section>
+      </div>
+    </div>
+
+    <!-- ============ Compare ============ -->
+    <section id="compare" class="band" aria-labelledby="compare-h">
+      <div class="wrap">
+        <div class="section-head">
+          <h2 id="compare-h">Compare your saved options</h2>
+          <p class="section-sub">Save two or more options above, then compare them side by side. Export when you are ready.</p>
+        </div>
+        <div class="compare-empty" id="compare-empty">
+          <p>No saved options yet. Build a mandate above and choose <strong>Save this option</strong>.</p>
+        </div>
+        <div class="compare-body" id="compare-body" hidden>
+          <div class="table-scroll">
+            <table class="data-table" id="compare-table">
+              <caption class="vis-hidden">Saved mandate options with support, lives saved, cost and ratio.</caption>
+              <thead><tr>
+                <th scope="col">Option</th><th scope="col">Country</th><th scope="col">Outbreak</th>
+                <th scope="col">Support</th><th scope="col">Lives saved</th><th scope="col">Benefit</th>
+                <th scope="col">Cost</th><th scope="col">Net benefit</th><th scope="col">Ratio</th>
+                <th scope="col"><span class="vis-hidden">Actions</span></th>
+              </tr></thead>
+              <tbody></tbody>
+            </table>
+          </div>
+          <div class="compare-actions">
+            <button class="btn btn-quiet" id="export-csv" type="button">Download as spreadsheet</button>
+            <button class="btn btn-quiet" id="export-word" type="button">Download briefing document</button>
+            <button class="btn btn-danger-quiet" id="clear-scenarios" type="button">Clear all saved options</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ Report ============ -->
+    <section id="report" class="band band-report" aria-labelledby="report-h">
+      <div class="wrap report-grid">
+        <div>
+          <div class="section-head">
+            <h2 id="report-h">Turn this into a policy report</h2>
+            <p class="section-sub">The tool writes a clear, detailed prompt from your current option and any saved options. Send it to an assistant of your choice to draft a first version of a policy brief. Always check the result before use.</p>
+          </div>
+          <div class="report-controls">
+            <span class="control-label" id="report-style-lbl">Report length and style</span>
+            <div class="chips" role="radiogroup" aria-labelledby="report-style-lbl" id="report-style">
+              <button class="chip" role="radio" aria-checked="true" data-value="brief" type="button">Short brief</button>
+              <button class="chip" role="radio" aria-checked="false" data-value="detailed" type="button">Detailed brief</button>
+              <button class="chip" role="radio" aria-checked="false" data-value="memo" type="button">Comparison memo</button>
+            </div>
+          </div>
+          <div class="control">
+            <label for="report-prompt">Prompt to send (you can edit this)</label>
+            <textarea id="report-prompt" rows="10" spellcheck="false"></textarea>
+          </div>
+          <div class="report-actions">
+            <button class="btn btn-primary" id="report-copy" type="button">Copy prompt</button>
+            <button class="btn btn-quiet" id="report-chatgpt" type="button">Copy and open ChatGPT</button>
+            <button class="btn btn-quiet" id="report-copilot" type="button">Copy and open Copilot</button>
+            <button class="btn btn-quiet" id="report-gemini" type="button">Copy and open Gemini</button>
+          </div>
+        </div>
+        <aside class="callout" aria-label="How to use this">
+          <h3>How to use this</h3>
+          <ol class="numbered">
+            <li>Choose a report length on the left.</li>
+            <li>Select copy and open for your assistant. The prompt is copied for you.</li>
+            <li>Paste it into the chat if it is not already there, then send.</li>
+            <li>Read the draft critically and add local legal, fairness and feasibility advice the numbers do not include.</li>
+          </ol>
+          <p class="callout-note">Nothing is sent automatically. You control what you paste. The prompt contains only the figures you see on screen.</p>
+        </aside>
+      </div>
+    </section>
+
+    <!-- ============ Method ============ -->
+    <section id="method" class="band band-method" aria-labelledby="method-h">
+      <div class="wrap method-grid">
+        <div>
+          <div class="section-head">
+            <h2 id="method-h">How it works</h2>
+            <p class="section-sub">Plain language first, with the detail a level down.</p>
+          </div>
+          <div class="prose">
+            <h3>Public support</h3>
+            <p>People in Australia, France and Italy completed a survey where they chose between vaccine mandate designs and a no-mandate option. The support estimate uses a two-class latent-class choice model. For each selected mandate design, the tool estimates support separately for each preference class, then averages those estimates using the estimated share of each class in the selected country and outbreak situation. The result is predicted policy support from stated preferences, not a forecast of actual behaviour.</p>
+            <h3>Lives saved and money value</h3>
+            <p>Lives saved for every 100,000 people is scaled up to the population you set. That total is multiplied by the money value you give to each life saved. The original study looked at 10 to 40 lives saved per 100,000, so values outside that range are flagged as an extrapolation.</p>
+            <h3>Costs and the ratio</h3>
+            <p>If you enter costs, the tool adds them up, subtracts them from the benefit to give net benefit, and divides benefit by cost to give the benefit to cost ratio. Above 1 means benefits are larger than costs under your assumptions.</p>
+            <h3>What this tool does not do</h3>
+            <p>It does not decide whether a mandate is right. Legal, ethical, fairness and political questions sit outside the numbers and need separate judgement.</p>
+          </div>
+          <div class="method-actions">
+            <a class="btn btn-quiet" href="methodology.html">Read the full method and data</a>
+            <button class="btn btn-quiet" id="open-glossary" type="button">Open glossary</button>
+          </div>
+        </div>
+        <aside class="callout" aria-label="Good to know">
+          <h3>Good to know</h3>
+          <ul>
+            <li>Results update as you change any control. There is nothing to submit.</li>
+            <li>Your saved options stay in this browser only. Use the share link to send a single option to a colleague.</li>
+            <li>The support estimate is the same every time for the same design, so results are reproducible.</li>
+          </ul>
+        </aside>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap footer-inner">
+      <p><strong>eMANDEVAL Future</strong>, version 4.3.2. A decision support tool, not a substitute for legal, ethical or political judgement.</p>
+      <p class="footer-soft">Estimates are based on stated preferences and simple cost benefit calculations. Check assumptions before any formal use.</p>
+      <p class="footer-credit">Developed by Mesfin Genie, Newcastle Business School, University of Newcastle, Australia. Questions: <a href="mailto:mesfin.genie@newcastle.edu.au">mesfin.genie@newcastle.edu.au</a></p>
+      <p class="footer-rights">&copy; <span id="footer-year">2026</span> Mesfin Genie. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <!-- Mobile section nav -->
+  <nav class="mobilebar" aria-label="Quick navigation">
+    <a href="#overview" class="mb-link is-current"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 10l9-7 9 7v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/></svg><span>Overview</span></a>
+    <a href="#build" class="mb-link"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M3 12h18M3 18h12"/></svg><span>Build</span></a>
+    <a href="#results" class="mb-link"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19V5M4 19h16M8 16l3-4 3 2 4-6"/></svg><span>Results</span></a>
+    <a href="#compare" class="mb-link"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="7" height="16" rx="1"/><rect x="14" y="4" width="7" height="16" rx="1"/></svg><span>Compare</span></a>
+  </nav>
+
+  <!-- Glossary modal -->
+  <div class="modal" id="glossary" role="dialog" aria-modal="true" aria-labelledby="glossary-h" hidden>
+    <div class="modal-backdrop" data-close-modal></div>
+    <div class="modal-box" role="document">
+      <div class="modal-head">
+        <h2 id="glossary-h">Glossary</h2>
+        <button class="modal-close" type="button" data-close-modal aria-label="Close glossary">&times;</button>
+      </div>
+      <dl class="glossary">
+        <dt>Public support</dt><dd>The model-predicted probability that a person would choose this mandate over no mandate. It comes from a two-class latent-class choice model and is class-share-weighted.</dd>
+        <dt>Latent-class model</dt><dd>A choice model that groups people into a small number of preference classes. Each class has its own preferences, and the population is a mix of the classes in estimated shares.</dd>
+        <dt>Preference class</dt><dd>One of the two groups in the model. A supporter class tends to favour mandates, and a resister class tends to prefer no mandate. Overall support averages the two using their shares.</dd>
+        <dt>Outbreak situation</dt><dd>The scenario people were asked to imagine, either mild or endemic, or a severe outbreak.</dd>
+        <dt>Exemptions</dt><dd>The reasons people are allowed to opt out, from medical only to medical, religious and personal belief.</dd>
+        <dt>Coverage threshold</dt><dd>The vaccination level at which the mandate is lifted.</dd>
+        <dt>Lives saved per 100,000</dt><dd>The health benefit assumption. The study covered 10 to 40. Outside that range is an extrapolation.</dd>
+        <dt>Value of a statistical life</dt><dd>A money figure used in policy to value a life saved, for comparing benefits with costs.</dd>
+        <dt>Net benefit</dt><dd>Health benefit value minus total cost.</dd>
+        <dt>Benefit to cost ratio</dt><dd>Health benefit value divided by total cost. Above 1 means benefits are larger than costs.</dd>
+        <dt>Extrapolation</dt><dd>Using the model outside the range of data it was built on. Treat these results with extra care.</dd>
+      </dl>
+    </div>
+  </div>
+
+  <!-- Tour overlay -->
+  <div class="tour" id="tour" hidden>
+    <div class="tour-pop" role="dialog" aria-modal="true" aria-labelledby="tour-title" aria-describedby="tour-body" tabindex="-1">
+      <p class="tour-step" id="tour-step">Step 1 of 6</p>
+      <h2 id="tour-title">Welcome</h2>
+      <p id="tour-body">This short tour shows you the main parts of the tool.</p>
+      <div class="tour-actions">
+        <button class="btn btn-quiet" id="tour-skip" type="button">Skip</button>
+        <span class="tour-spacer"></span>
+        <button class="btn btn-quiet" id="tour-back" type="button">Back</button>
+        <button class="btn btn-primary" id="tour-next" type="button">Next</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="tooltip" id="tooltip" role="status" hidden></div>
+  <!-- ============== AI Policy Assistant (chatbot) ============== -->
+  <button class="assistant-fab" id="assistant-fab" type="button" aria-haspopup="dialog" aria-expanded="false" aria-controls="assistant-panel">
+    <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+    <span>Ask Policy Assistant</span>
+  </button>
+
+  <div class="assistant-scrim" id="assistant-scrim"></div>
+
+  <aside class="assistant-panel" id="assistant-panel" role="dialog" aria-modal="false" aria-labelledby="assistant-title" aria-describedby="assistant-disclaimer" aria-hidden="true" inert>
+    <header class="assistant-head">
+      <div class="assistant-head-text">
+        <h2 id="assistant-title">eMANDEVAL Policy Assistant</h2>
+        <p id="assistant-disclaimer" class="assistant-disclaimer">Interpretation support only. Not legal or medical advice.</p>
+      </div>
+      <div class="assistant-head-btns">
+        <button class="assistant-x" id="assistant-min" type="button" aria-label="Minimise the Policy Assistant" title="Minimise">
+          <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/></svg>
+        </button>
+        <button class="assistant-x" id="assistant-close" type="button" aria-label="Close the Policy Assistant" title="Close">
+          <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18M6 6l12 12"/></svg>
+        </button>
+      </div>
+    </header>
+
+    <p class="assistant-privacy" id="assistant-privacy">The Policy Assistant sends your question and the current tool settings to a free tier AI service to generate a response. Do not enter personal, confidential or sensitive information. Responses are interpretation support only and do not replace legal, medical, ethical or policy review.</p>
+
+    <div class="assistant-messages" id="assistant-messages" role="log" aria-live="polite" aria-label="Conversation with the Policy Assistant"></div>
+
+    <div class="assistant-toast" id="assistant-toast" role="status" aria-live="polite" hidden></div>
+
+    <div class="assistant-quick" id="assistant-quick" role="group" aria-label="Quick questions">
+      <button class="assistant-chip" type="button" data-action="explain_result">Explain this result</button>
+      <button class="assistant-chip" type="button" data-action="improve_support">Improve support</button>
+      <button class="assistant-chip" type="button" data-action="draft_briefing">Draft policy briefing</button>
+      <button class="assistant-chip" type="button" data-action="explain_public">Explain for the public</button>
+      <button class="assistant-chip" type="button" data-action="identify_risks">Identify risks</button>
+      <button class="assistant-chip" type="button" data-action="compare_saved">Compare saved options</button>
+      <button class="assistant-chip" type="button" data-action="explain_lc">Explain the LC model</button>
+      <button class="assistant-chip" type="button" data-action="list_assumptions">List assumptions and limitations</button>
+    </div>
+
+    <form class="assistant-inputbar" id="assistant-form">
+      <label class="vis-hidden" for="assistant-input">Type your question for the Policy Assistant</label>
+      <textarea id="assistant-input" rows="1" maxlength="1500" placeholder="Ask about this result, the LC model, risks, or saved options"></textarea>
+      <button class="assistant-send" id="assistant-send" type="submit" aria-label="Send message">
+        <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 2 11 13M22 2l-7 20-4-9-9-4 20-7z"/></svg>
+      </button>
+    </form>
+
+    <div class="assistant-foot">
+      <button class="assistant-clear" id="assistant-clear" type="button">Clear chat</button>
+      <span class="assistant-count" id="assistant-count" aria-live="polite"></span>
+    </div>
+
+    <p class="assistant-freetier">This chatbot is provided using free tier AI and backend services. Availability may be limited by provider quotas. If the AI assistant is unavailable, the decision aid calculations and report prompts remain usable.</p>
+  </aside>
+
+  <div class="toasts" id="toasts" aria-live="polite" aria-atomic="false"></div>
+  <p class="vis-hidden" id="live-results" aria-live="polite"></p>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.js"></script>
+  <script src="app.js"></script>
+  <script src="assistant.js"></script>
+</body>
+</html>

@@ -1,0 +1,18 @@
+# Cloudflare Worker configuration for the eMANDEVAL Policy Assistant.
+# Deploy with:  wrangler deploy   (see README_DEPLOY_CHATBOT.md)
+#
+# The Gemini API key is NOT stored here. It is set as a secret:
+#   wrangler secret put GEMINI_API_KEY
+
+name = "emandeval-chat"
+main = "src/index.js"
+compatibility_date = "2024-11-01"
+
+# Non secret variables. You can change the model here, or override it with a
+# secret/var named GEMINI_MODEL. ALLOWED_ORIGINS restricts CORS to your sites.
+[vars]
+GEMINI_MODEL = "gemini-3.5-flash"
+ALLOWED_ORIGINS = "https://drgenie.github.io,http://localhost:8000,http://127.0.0.1:8000"
+
+# GEMINI_API_KEY is a SECRET, not listed here. Set it with:
+#   wrangler secret put GEMINI_API_KEY
